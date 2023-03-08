@@ -2,6 +2,21 @@
 {% block title %}Customers{% endblock %}
 {% block content %}
 
+<h3>Search for a Customer</h3>
+<form action="/search/{{ customer.firstName }}{{ customer.lastName }}" method="GET">
+  <div class="form-group">
+    <label for="first-name">First Name: </label>
+    <input id="first-name" class="form-control" name="firstName">
+  </div>
+  <div class="form-group">
+    <label for="last-name">Last Name:</label>
+    <input id="last-name" class="form-control" name="lastName">
+  </div>
+  <button class="btn btn-primary">Search</button>
+</form>
+<br>
+<hr>
+<br>
 <a class="btn btn-primary" style="float: right" href="/add/">Add a Customer</a></p>
 
 <h1>Customers</h1>

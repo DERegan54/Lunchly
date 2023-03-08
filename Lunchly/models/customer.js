@@ -53,6 +53,24 @@ class Customer {
     return new Customer(customer);
   }
 
+  /** search for a customer. */
+
+  async search(firstName, lastName) {
+    const result = await db.query(
+      `SELECT first_name AS "firstName",
+              last_name AS "lastName",
+              id
+         FROM customers WHERE firstName = $1, lastName=$2, id=$3`,
+         [firstName, lastName, id])
+    const customer = result.rows[0];
+    if(customer === undefined) {
+      const err = new Error(`No such customer: ${firstName, lastName}`);
+      err.status = 404;
+      throw err;
+    }
+    return customer;
+  }
+
   /** function to get full name. */
 
   get fullName() {

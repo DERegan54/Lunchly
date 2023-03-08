@@ -50,13 +50,27 @@ router.post("/add/", async function(req, res, next) {
 
 router.get("/:id/", async function(req, res, next) {
   try {
-    const customer = await Customer.get(req.params.id);
+    const customer = await customer.get(req.params.id);
 
     const reservations = await customer.getReservations();
 
     return res.render("customer_detail.html", { customer, reservations });
   } catch (err) {
     return next(err);
+  }
+});
+
+// /** Handle searching for a customer. */
+
+router.get('/search/:firstName, lastName', async function (req, res, next) {
+  try {
+    const {firstName} = req.params.firstName;
+    const {lastName} = req.params.lastName;
+    const customer = await customer.search(firstName, lastName);
+    const reservations = await customer.getReservations();
+    return res.render("customer_detail.html", { customer, reservations });
+  } catch (err) {
+    return next (err);
   }
 });
 
